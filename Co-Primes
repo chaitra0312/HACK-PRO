@@ -1,0 +1,49 @@
+import java.util.HashSet;
+import java.util.Scanner;
+public class CoprimePairs {
+    public static int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    public static int countCoprimePairs(int[] arr) {
+        HashSet<Integer> uniqueNumbers = new HashSet<>();
+        for (int num : arr) {
+            uniqueNumbers.add(num);
+        }
+        
+        Integer[] uniqueArray = uniqueNumbers.toArray(new Integer[0]);
+
+        int count = 0;
+
+        for (int i = 0; i < uniqueArray.length; i++) {
+            for (int j = i + 1; j < uniqueArray.length; j++) {
+                
+                if (gcd(uniqueArray[i], uniqueArray[j]) == 1) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        int result = countCoprimePairs(arr);
+
+        System.out.println(result);
+
+        scanner.close();
+    }
+}
