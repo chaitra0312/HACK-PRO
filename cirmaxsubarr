@@ -1,0 +1,33 @@
+class Solution {
+    public int circularSubarraySum(int arr[]) {
+        // Code here
+        int totalSum = 0;
+        int maxKadane = KadaneMax(arr);
+        int minKadane = KadaneMin(arr);
+        for(int num : arr) 
+            totalSum += num;
+        if(maxKadane < 0) 
+            return maxKadane;
+            
+        return Math.max(maxKadane, totalSum - minKadane);
+        }
+        public static int KadaneMax(int arr[]) {
+            int max_so_far = arr[0];
+            int cur_max = arr[0];
+            for(int i = 1;i<arr.length;i++) {
+                cur_max = Math.max(arr[i] , arr[i]+cur_max);
+                max_so_far = Math.max(max_so_far,cur_max);
+            }
+            return max_so_far;
+        }
+        public static int KadaneMin(int[] arr) {
+            int min_so_far = arr[0];
+            int cur_min = arr[0];
+            for(int i = 1; i < arr.length ;i++) {
+                cur_min = Math.min(arr[i],arr[i]+cur_min);
+                min_so_far = Math.min(min_so_far,cur_min);
+            }
+            return min_so_far;
+        }
+    }
+
