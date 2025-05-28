@@ -1,0 +1,21 @@
+class Solution {
+    int maxProduct(int[] arr) {
+        // code here
+       int max_so_far = arr[0];
+       int max_ending_here = arr[0];
+       int min_ending_here = arr[0];
+       for(int i = 1;i<arr.length; i++) {
+           int temp = max_ending_here;
+           if(arr[i] < 0) {
+               max_ending_here = min_ending_here;
+               min_ending_here = temp;
+           }
+           max_ending_here = Math.max(arr[i], arr[i]*max_ending_here);
+           min_ending_here = Math.min(arr[i], arr[i]*min_ending_here);
+       
+           max_so_far = Math.max(max_so_far,max_ending_here);
+       }
+        return max_so_far;
+        
+    }
+}
